@@ -2,7 +2,8 @@ var myapp=angular.module("MyApp",[]);
 
 myapp.controller("MyCtrl",function($scope)
 {
-	
+	$scope.x=true;
+	$scope.y=true;
 	$scope.product=[];
 	$scope.xyz=[];
 	$scope.selected={
@@ -26,9 +27,11 @@ myapp.controller("MyCtrl",function($scope)
 	};
 	
 	$scope.addrow = function()
-	{
+	{	
+		
 		var test=$scope.obj;
 		if(test.id && test.name && test.description && test.category && test.price){
+			$scope.y=false;
 			$scope.product.push($scope.obj);
 			
 		}
@@ -90,6 +93,35 @@ myapp.controller("MyCtrl",function($scope)
 
     $scope.reset = function () {
         $scope.selected = {};
-    };
+	}; 
+	$scope.addRecord=function(){
+      
+	  
+        if (typeof(Storage) !== "undefined") {
+                       
+              
+                
+                // storing our array as a string
+                localStorage.setItem("quentinTarantino", JSON.stringify($scope.product));
+                window.alert("Record Added Successfully");
+               
+               
+        
+        } else {
+            document.getElementById("result").innerHTML = "Sorry, your browser does not support Web Storage...";
+        }
+	  
+	};
+	$scope.GetRecord=function(){
+		$scope.x=false;
+		var retrievedData = localStorage.getItem("quentinTarantino");
+		var movies2 = JSON.parse(retrievedData);
+		$scope.product=movies2;
+		
+		
+
+
+};
+	
 });
 	
