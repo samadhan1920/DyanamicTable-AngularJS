@@ -1,0 +1,158 @@
+<html ng-app="MyApp">
+	<head>
+		<title>Directive Demo</title>
+		<script src="angular.js"></script>
+		<script src="AgnmtController.js"></script>
+		<link href="bootstrap.css" rel="stylesheet"/>
+		<link href="bootstrap-theme.css" rel="stylesheet"/>
+		<style>
+			.form-horizontal{
+				border:2px solid black;
+				margin-left:100px;
+				margin-top:20px;
+				margin-right:100px;
+				padding-left:100px;
+				padding-top:40px;
+				text-align:center;
+				padding-bottom:40px;
+				background-color:lightblue;
+			}
+			.thc{
+				color:black;
+				text-align:center;
+				font-size:16px;
+				font-style:bold;
+				background-color:pink;
+			}
+			.thc1{
+				color:black;
+				font-size:12px;
+				font-style:bold;
+				background-color:pink;
+			}
+		
+			</style>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		
+	</head>
+	<body>
+<div class="container" ng-controller="MyCtrl">
+<div style="margin-top:20px">
+					
+
+	<div class="container">
+								<h3 align="center" style="color:red;">Product Portal</h3>
+								<div>
+		<form class="form form-horizontal" novalidate>
+		<fieldset ng-disabled="flag">
+			<div class="form-group">
+				<label class="control-label col-sm-2">ID</label>
+				<div class="col-sm-7">
+					<input ng-name="nid" class="form-control" type="text"  ng-model="obj.id"  required >
+						<span style="color:red" ng-show="pEntry.nid.$invalid && pEntry.nid.$dirty">
+						<span ng-show="pEntry.nid.$error.required">field is required.</span>
+						</span>
+
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-sm-2">NAME</label>
+				<div class="col-sm-7">
+					<input name="pid"class="form-control" type="text"  ng-model="obj.name"  required >
+					<span style="color:red" ng-show="pEntry.pid.$invalid && pEntry.pid.$dirty">
+						<span ng-show="pEntry.pid.$error.required">field is required.</span>
+						</span>
+	
+				</div>
+			</div><div class="form-group">
+				<label class="control-label col-sm-2">CATEGORY</label>
+				<div class="col-sm-7">
+					<input	name="qid" class="form-control" type="text"  ng-model="obj.category"  required >
+					<span style="color:red" ng-show="pEntry.qid.$invalid && pEntry.qid.$dirty">
+						<span ng-show="pEntry.qid.$error.required">field is required.</span>
+						</span>
+	
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-sm-2">DESCRIPTION</label>
+				<div class="col-sm-7">
+					<input name="rid" class="form-control" type="text"  ng-model="obj.description"  required >
+				<span style="color:red" ng-show="pEntry.rid.$invalid && pEntry.rid.$dirty">
+						<span ng-show="pEntry.rid.$error.required">field is required.</span>
+						</span>
+		
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-sm-2">PRICE</label>
+				<div class="col-sm-7">
+					<input name="sid"class="form-control" type="text"  ng-model="obj.price"  required >
+					<span style="color:red" ng-show="pEntry.sid.$invalid && pEntry.sid.$dirty">
+						<span ng-show="pEntry.sid.$error.required">field is required.</span>
+						</span>
+	
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-offset-2 col-sm-6" align="center">
+					<button type="submit" class="btn btn-success" style="width:100px;" ng-click="addrow()">Add</button>		
+					<button type="reset" class="btn btn-warning" style="width:100px;" ng-click="clearall()">Cancel</button>
+					</div>
+				</div>
+				<div class="col-sm-offset-2 col-sm-6" ><button type="button" ng-disabled="x || y" class="btn btn-primary" style="width:100px" ng-click="addRecord()">AddRecords</button>
+				<button type="button" class="btn btn-info" ng-click="GetRecord()">GetRecord</button></div>
+			</fieldset>
+			
+		
+		
+		</form>
+
+		
+	</div>
+
+	<table class="table table-bordered">
+		 <tr >
+			<th class="thc">ID</th>
+			<th class="thc">NAME</th>
+			<th class="thc">DESCRIPTION</th>
+			<th class="thc">CATEGORY</th>
+			<th class="thc">PRICE</th>
+			<th class="thc"></th>
+		</tr>
+		<tr ng-repeat="x in product" ng-include="getTemplate(x)">
+		</tr>
+	
+	<script type="text/ng-template" id="display">
+			<td class="thc1">{{x.id}}</td>
+			<td class="thc1">{{x.name}}</td>
+			<td class="thc1">{{x.description}}</td>
+			<td class="thc1">{{x.category}}</td>
+			<td class="thc1">{{x.price}}</td>
+			<td class="thc1"align="center">
+			<button name="btnedit"type="submit" class="btn btn-primary" style="width:100px; height:30px;" onclick="getElementById('f1').disabled=true;"ng-click="editContact(x)">
+			<span class="glyphicon glyphicon-pencil" ></span> Edit</button>		
+			<button type="button" class="btn btn-danger" style="width:100px;height:30px;" ng-click="removeRow(x.name)">
+			<span class="glyphicon glyphicon-remove"></span>Delete</button></td>
+	</script>
+	<script name="eee" type="text/ng-template" id="edit">
+			<td class="thc1"><input type="text" ng-model="selected.id"></td>
+			<td class="thc1"><input type="text" ng-model="selected.name"></td>
+			<td class="thc1"><input type="text" ng-model="selected.description"></td>
+			<td class="thc1"><input type="text" ng-model="selected.category"></td>
+			<td class="thc1"><input type="text" ng-model="selected.price"></td>
+			<td class="thc1" align="center"><button type="submit" class="btn btn-primary" style="width:100px;" ng-click="saveContact(selected)">
+			<span class="glyphicon glyphicon-file"></span>Save</button>		
+			<button type="button" class="btn btn-default" style="width:100px;" ng-click="reset()">
+			<span class="glyphicon glyphicon-remove"></span>Reset</button></td>
+	</script>
+	
+	</table>	
+
+</div>
+</div>
+</body>
+</html>
